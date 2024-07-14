@@ -1,6 +1,9 @@
 # quilt
 a quilt pattern generator
 
+![example gif](example.gif)
+
+
 so far:
 
 - grey guidelines show 6x2 sided symmetry (this is adapted from a snowflake generator, can you tell)
