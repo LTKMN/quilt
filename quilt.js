@@ -33,6 +33,7 @@ function init() {
     
     // Event listeners
     window.addEventListener('mousedown', onMouseDown, false);
+    window.addEventListener('touchstart', onTouchStart, false);
     window.addEventListener('resize', onWindowResize, false);
 
     // Export button
@@ -70,12 +71,20 @@ function addGuidelines() {
 }
 
 function onMouseDown(event) {
-    event.preventDefault();
-    
-    console.log("Mouse down event");
+    handleInteraction(event.clientX, event.clientY);
+}
 
-    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+function onTouchStart(event) {
+    event.preventDefault();
+    const touch = event.touches[0];
+    handleInteraction(touch.clientX, touch.clientY);
+}
+
+function handleInteraction(clientX, clientY) {
+    console.log("Interaction event");
+
+    mouse.x = (clientX / window.innerWidth) * 2 - 1;
+    mouse.y = -(clientY / window.innerHeight) * 2 + 1;
 
     let vector = new THREE.Vector3(mouse.x, mouse.y, 0);
     vector.unproject(camera);
@@ -83,7 +92,7 @@ function onMouseDown(event) {
     let x = vector.x;
     let y = vector.y;
 
-    console.log(`Mouse click at (${x}, ${y})`);
+    console.log(`Interaction at (${x}, ${y})`);
     
     let dotGeometry = new THREE.CircleGeometry(0.05, 32);
     let dotMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
